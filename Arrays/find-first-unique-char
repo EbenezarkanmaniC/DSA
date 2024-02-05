@@ -1,0 +1,19 @@
+class Solution {
+    public int firstUniqChar(String str) {
+        List<Character> mp = str.chars()
+				.mapToObj(a->Character.valueOf((char)a))
+				.collect(Collectors.groupingBy(Function.identity(),LinkedHashMap::new,Collectors.counting()))
+				.entrySet()
+				.stream()
+				.filter(a->a.getValue()==1)
+				.map(a->a.getKey())
+				.collect(Collectors.toList());
+		System.out.println(mp);
+		if(!mp.isEmpty()) {
+			return str.indexOf(mp.get(0));
+		}
+		else {
+			return -1;
+		}
+    }
+}
